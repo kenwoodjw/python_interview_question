@@ -323,9 +323,9 @@
         year = input("请输入年份: ")
         month = input("请输入月份: ")
         day = input("请输入天: ")
-        date1 = datetime.data(year=int(year),month=int(month),day=int(day))
-        date2 = datatime.date(year=int(year),month=1,day=1)
-        return (date2-date1 +1).days
+        date1 = datetime.date(year=int(year),month=int(month),day=int(day))
+        date2 = datetime.date(year=int(year),month=1,day=1)
+        return (date2-date1).days + 1
 ```
 ## 2.2 打乱一个排好序的list对象alist？
 ```
