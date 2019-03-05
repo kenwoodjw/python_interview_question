@@ -422,6 +422,9 @@ b. Python3里只有新式类
 c. Python2里面继承object的是新式类，没有写父类的是经典类
 d. 经典类目前在Python里基本没有应用
 
+- **补充**
+新式类和经典类本质的区别是MRO不同，进而导致多重继承中父类调用顺序不同，详细可以看帖子
+[Python的新式类和经典类](https://segmentfault.com/a/1190000017759534)
 ## 4.2 python中内置的数据结构有几种？
 a. 整型 int、 长整型 long、浮点型 float、 复数 complex
 b. 字符串 str、 列表list、 元祖tuple
