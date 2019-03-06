@@ -365,12 +365,7 @@ https://stackoverflow.com/questions/30294146/python-fastest-way-to-process-large
 ## 3.4 将字符串 "k:1 |k1:2|k2:3|k3:4"，处理成字典 {k:1,k1:2,...}
 ```
     str1 = "k:1|k1:2|k2:3|k3:4"
-    def str2dict(str1):
-        dict1 = {}
-        for iterms in str1.split('|'):
-            key,value = iterms.split(':')
-            dict1[key] = value
-        return dict1
+    d = {k:int(v) for t in str1.split("|") for k, v in (t.split(":"), )}
 ```
 ## 3.5 请按alist中元素的age由大到小排序
 ```
