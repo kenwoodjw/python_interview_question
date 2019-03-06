@@ -283,7 +283,7 @@
 
     if __name__ == '__main__':
         for e in get_lines():
-            process(e) #处理每一行数据
+            process(e)  # 处理每一行数据
 ```
 现在要处理一个大小为10G的文件，但是内存只有4G，如果在只修改get_lines 函数而其他代码保持不变的情况下，应该如何实现？需要考虑的问题都有那些？
 ```
@@ -474,7 +474,7 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
     foo1 = Foo()
     foo2 = Foo()
 
-    print(foo1 is foo2)# True
+    print(foo1 is foo2)  # True
 ```
 第三种方法：元类，元类是用于创建类对象的类，类对象创建实例对象时一定要调用call方法，因此在调用call时候保证始终只创建一个实例即可，type是python的元类
 ```
@@ -804,7 +804,7 @@ RuntimeError： Queue objects should only be shared between processs through inh
                 q.put(i)
         if __name__ == "__main__":
             print("(%s)start"%os.getpid())
-            q = Manager().Queue()#使用Manager中的Queue
+            q = Manager().Queue()  #使用Manager中的Queue
             po = Pool()
             po.apply_async(wrtier,(q,))
             time.sleep(1)
@@ -890,14 +890,14 @@ RuntimeError： Queue objects should only be shared between processs through inh
         print(’---子线程结束---')
     def main():
         t1 = threading.Thread(target=thread)
-        t1.setDaemon(True)#设置子线程守护主线程
+        t1.setDaemon(True)  # 设置子线程守护主线程
         t1.start()
         print('---主线程结束---')
     
     if __name__ =='__main__':
         main()
-    #执行结果
-    ---主线程结束--- #只有主线程结束，子线程来不及执行就被强制结束
+    # 执行结果
+    ---主线程结束--- # 只有主线程结束，子线程来不及执行就被强制结束
 ```
 三、 join（线程同步)
 join 所完成的工作就是线程同步，即主线程任务结束以后，进入堵塞状态，一直等待所有的子线程结束以后，主线程再终止。
