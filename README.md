@@ -277,20 +277,20 @@
 # Python基础
 ## 1.1 有一个jsonline格式的文件file.txt 大小约为10K
 ```
-    def get_lines():
-        with open('file.txt', 'rb') as f:
-            return f.readlines()
+def get_lines():
+    with open('file.txt', 'rb') as f:
+        return f.readlines()
 
-    if __name__ == '__main__':
-        for e in get_lines():
-            process(e) #处理每一行数据
+if __name__ == '__main__':
+    for e in get_lines():
+        process(e) #处理每一行数据
 ```
 现在要处理一个大小为10G的文件，但是内存只有4G，如果在只修改get_lines 函数而其他代码保持不变的情况下，应该如何实现？需要考虑的问题都有那些？
 ```
-    def get_lines():
-        with open('file.txt', 'rb') as f:
-            for i in f:
-                yield i
+def get_lines():
+    with open('file.txt', 'rb') as f:
+        for i in f:
+            yield i
 ```
 Pandaaaa906提供的方法
 ```
@@ -314,119 +314,119 @@ if __name__=="__main__":
 https://stackoverflow.com/questions/30294146/python-fastest-way-to-process-large-file
 ## 1.2 补充缺失的代码
 ```
-    def print_directory_contents(sPath):
-    """
-    这个函数接收文件夹的名称作为输入参数
-    返回该文件夹中文件的路径
-    以及其包含文件夹中文件的路径
-    """
-    import os
-    for s_child in os.listdir(s_path):
-        s_child_path = os.path.join(s_path, s_child)
-        if os.path.isdir(s_child_path):
-            print_directory_contents(s_child_path)
-        else:
-            print(s_child_path)
+def print_directory_contents(sPath):
+"""
+这个函数接收文件夹的名称作为输入参数
+返回该文件夹中文件的路径
+以及其包含文件夹中文件的路径
+"""
+import os
+for s_child in os.listdir(s_path):
+    s_child_path = os.path.join(s_path, s_child)
+    if os.path.isdir(s_child_path):
+        print_directory_contents(s_child_path)
+    else:
+        print(s_child_path)
 ```
 # 模块与包
 ## 2.1 输入日期， 判断这一天是这一年的第几天？
 ```
-    import datetime
-    def dayofyear():
-        year = input("请输入年份: ")
-        month = input("请输入月份: ")
-        day = input("请输入天: ")
-        date1 = datetime.date(year=int(year), month=int(month), day=int(day))
-        date2 = datetime.date(year=int(year), month=1, day=1)
-        return (date1-date2).days+1
+import datetime
+def dayofyear():
+    year = input("请输入年份: ")
+    month = input("请输入月份: ")
+    day = input("请输入天: ")
+    date1 = datetime.date(year=int(year), month=int(month), day=int(day))
+    date2 = datetime.date(year=int(year), month=1, day=1)
+    return (date1-date2).days+1
 ```
 ## 2.2 打乱一个排好序的list对象alist？
 ```
-    import random
-    alist = [1, 2, 3, 4, 5]
-    random.shuffle(alist)
-    print(alist)
+import random
+alist = [1, 2, 3, 4, 5]
+random.shuffle(alist)
+print(alist)
 ```
 # 数据类型
 ## 3.1 现有字典 d= {'a':24,'g':52,'i':12,'k':33}请按value值进行排序?
 ```
-    sorted(d.items(), key=lambda x:x[1])
+sorted(d.items(), key=lambda x:x[1])
 ```
 ## 3.2 字典推导式
 ```
- d = {key: value for (key, value) in iterable}
+d = {key: value for (key, value) in iterable}
 ```
 ## 3.3 请反转字符串 "aStr"?
 ```
-    print("aStr"[::-1])
+print("aStr"[::-1])
 ```
 ## 3.4 将字符串 "k:1 |k1:2|k2:3|k3:4"，处理成字典 {k:1,k1:2,...}
 ```
-    str1 = "k:1|k1:2|k2:3|k3:4"
-    def str2dict(str1):
-        dict1 = {}
-        for iterms in str1.split('|'):
-            key, value = iterms.split(':')
-            dict1[key] = value
-        return dict1
+str1 = "k:1|k1:2|k2:3|k3:4"
+def str2dict(str1):
+    dict1 = {}
+    for iterms in str1.split('|'):
+        key, value = iterms.split(':')
+        dict1[key] = value
+    return dict1
 ```
 ## 3.5 请按alist中元素的age由大到小排序
 ```
-    alist = [{'name': 'a', 'age': 20}, {'name': 'b', 'age': 30},{'name': 'c', 'age': 25}]
-    def sort_by_age(list1):
-        return sorted(alist, key=lambda x:x['age'], reverse=True)
+alist = [{'name': 'a', 'age': 20}, {'name': 'b', 'age': 30},{'name': 'c', 'age': 25}]
+def sort_by_age(list1):
+    return sorted(alist, key=lambda x:x['age'], reverse=True)
 ```
 ## 3.6 下面代码的输出结果将是什么？
 ```
-    list = ['a', 'b', 'c', 'd', 'e']
-    print(list[10:])
+list = ['a', 'b', 'c', 'd', 'e']
+print(list[10:])
 ```
 代码将输出[],不会产生IndexError错误，就像所期望的那样，尝试用超出成员的个数的index来获取某个列表的成员。例如，尝试获取list[10]和之后的成员，会导致IndexError。然而，尝试获取列表的切片，开始的index超过了成员个数不会产生IndexError，而是仅仅返回一个空列表。这成为特别让人恶心的疑难杂症，因为运行的时候没有错误产生，导致Bug很难被追踪到。
 ## 3.7 写一个列表生成式，产生一个公差为11的等差数列
 ```
-    print([x * 11 for x in range(10)])
+print([x * 11 for x in range(10)])
 ```
 ## 3.8 给定两个列表，怎么找出他们相同的元素和不同的元素？
 ```
-    list1 = [1, 2, 3]
-    list2 = [3, 4, 5]
-    set1 = set(list1)
-    set2 = set(list2)
-    print(set1 & set2)
-    print(set1 ^ set2)
+list1 = [1, 2, 3]
+list2 = [3, 4, 5]
+set1 = set(list1)
+set2 = set(list2)
+print(set1 & set2)
+print(set1 ^ set2)
 ```
 ## 3.9 请写出一段python代码实现删除list里面的重复元素？
 ```
-    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
-    l2 = list(set(l1))
-    print(l2)
+l1 = ['b', 'c', 'd', 'c', 'a', 'a']
+l2 = list(set(l1))
+print(l2)
 ```
 用list类的sort方法:
 ```
-    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
-    l2 = list(set(l1))
-    l2.sort(key=l1.index)
-    print(l2)
+l1 = ['b', 'c', 'd', 'c', 'a', 'a']
+l2 = list(set(l1))
+l2.sort(key=l1.index)
+print(l2)
 ```
 也可以这样写:
 ```
-    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
-    l2 = sorted(set(l1), key=l1.index)
-    print(l2)
+l1 = ['b', 'c', 'd', 'c', 'a', 'a']
+l2 = sorted(set(l1), key=l1.index)
+print(l2)
 ```
 也可以用遍历：
 ```
-    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
-    l2 = []
-    for i in l1:
-        if not i in l2:
-            l2.append(i)
-    print(l2)
+l1 = ['b', 'c', 'd', 'c', 'a', 'a']
+l2 = []
+for i in l1:
+    if not i in l2:
+        l2.append(i)
+print(l2)
 ```
 ## 3.10 给定两个list A，B ,请用找出A，B中相同与不同的元素
 ```
-    A,B 中相同元素: print(set(A) & set(B))
-    A,B 中不同元素: print(set(A) ^ set(B))
+A,B 中相同元素: print(set(A) & set(B))
+A,B 中不同元素: print(set(A) ^ set(B))
 ```
 # 企业面试题
 ## 4.1 python新式类和经典类的区别？
@@ -443,113 +443,112 @@ c. 字典 dict 、 集合 set
 ## 4.3 python如何实现单例模式?请写出两种实现方式?
 第一种方法:使用装饰器
 ```
-    def singleton(cls):
-        instances = {}
-        def wrapper(*args, **kwargs):
-            if cls not in instances:
-                instances[cls] = cls(*args, **kwargs)
-            return instances[cls]
-        return wrapper
-    @singleton
-    class Foo(object):
-        pass
-    foo1 = Foo()
-    foo2 = Foo()
-    print foo1 is foo2 #True
+def singleton(cls):
+    instances = {}
+    def wrapper(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return wrapper
+@singleton
+class Foo(object):
+    pass
+foo1 = Foo()
+foo2 = Foo()
+print foo1 is foo2 #True
 ```
 第二种方法：使用基类
 New 是真正创建实例对象的方法，所以重写基类的new 方法，以此保证创建对象的时候只生成一个实例
 ```
-    class Singleton(object):
-        def __new__(cls, *args, **kwargs):
-            if not hasattr(cls, '_instance'):
-                cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
-            return cls._instance
+class Singleton(object):
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, '_instance'):
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
         
-    class Foo(Singleton):
-        pass
-    
-    foo1 = Foo()
-    foo2 = Foo()
+class Foo(Singleton):
+    pass
 
-    print foo1 is foo2  # True
+foo1 = Foo()
+foo2 = Foo()
+
+print foo1 is foo2  # True
 ```
 第三种方法：元类，元类是用于创建类对象的类，类对象创建实例对象时一定要调用call方法，因此在调用call时候保证始终只创建一个实例即可，type是python的元类
 ```
-    class Singleton(type):
-        def __call__(cls, *args, **kwargs):
-            if not hasattr(cls, '_instance'):
-                cls._instance = super(Singleton, cls).__call__(*args, **kwargs)
-            return cls._instance
+class Singleton(type):
+    def __call__(cls, *args, **kwargs):
+        if not hasattr(cls, '_instance'):
+            cls._instance = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instance
 ```
 ```
-    class Foo(object):
-        __metaclass__ = Singleton
-    
-    foo1 = Foo()
-    foo2 = Foo()
-    print foo1 is foo2  # True
+class Foo(object):
+    __metaclass__ = Singleton
 
+foo1 = Foo()
+foo2 = Foo()
+print foo1 is foo2  # True
 ```
 ## 4.4 反转一个整数，例如-123 --> -321 
 ```
-    class Solution(object):
-        def reverse(self, x):
-            if -10 < x < 10:
-                return x
-            str_x = str(x)
-            if str_x[0] != "-":
-                str_x = str_x[::-1]
-                x = int(str_x)
-            else:
-                str_x = str_x[1:][::-1]
-                x = int(str_x)
-                x = -x
-            return x if -2147483648 < x < 2147483647 else 0
-    if __name__ == '__main__':
-        s = Solution()
-        reverse_int = s.reverse(-120)
-        print(reverse_int)
+class Solution(object):
+    def reverse(self, x):
+        if -10 < x < 10:
+            return x
+        str_x = str(x)
+        if str_x[0] != "-":
+            str_x = str_x[::-1]
+            x = int(str_x)
+        else:
+            str_x = str_x[1:][::-1]
+            x = int(str_x)
+            x = -x
+        return x if -2147483648 < x < 2147483647 else 0
+if __name__ == '__main__':
+    s = Solution()
+    reverse_int = s.reverse(-120)
+    print(reverse_int)
 ```
 ## 4.5 设计实现遍历目录与子目录，抓取.pyc文件
 第一种方法：
 ```
-    import os
+import os
 
-    def get_files(dir,suffix):
-        res = []
-        for root, dirs, files in os.walk(dir):
-            for filename in files:
-                name, suf = os.path.splitext(filename)
-                if suf == suffix:
-                    res.append(os.path.join(root, filename))
+def get_files(dir,suffix):
+    res = []
+    for root, dirs, files in os.walk(dir):
+        for filename in files:
+            name, suf = os.path.splitext(filename)
+            if suf == suffix:
+                res.append(os.path.join(root, filename))
 
-        print(res)
+    print(res)
     
-    get_files("./", '.pyc')
+get_files("./", '.pyc')
 ```
 第二种方法：
 ```
-    import os
+import os
     
-    def pick(obj):
-        try:
-            if obj.[-4:] == ".pyc":
-                print(obj)
-            except:
-                return None
+def pick(obj):
+    try:
+        if obj.[-4:] == ".pyc":
+            print(obj)
+    except:
+        return None
         
-    def scan_path(ph):
-        file_list = os.listdir(ph)
-        for obj in file_list:
-            if os.path.isfile(obj):
-        pick(obj)
-            elif os.path.isdir(obj):
-                scan_path(obj)
+def scan_path(ph):
+    file_list = os.listdir(ph)
+    for obj in file_list:
+        if os.path.isfile(obj):
+    pick(obj)
+        elif os.path.isdir(obj):
+            scan_path(obj)
         
-    if __name__=='__main__':
-        path = input('输入目录')
-        scan_path(path)
+if __name__=='__main__':
+    path = input('输入目录')
+    scan_path(path)
 ```
 第三种方法
 ```
@@ -606,7 +605,7 @@ if __name__ == "__main__":
 ```
 ## 3.7 使用Python内置的filter()方法来过滤？
 ```
-    [x for x in filter(lambda x: x % 2 == 0, range(10))] 
+[x for x in filter(lambda x: x % 2 == 0, range(10))] 
 ```
 ## 4设计模式
 ## 4.1 对设计模式的理解，简述你了解的设计模式？
@@ -615,15 +614,15 @@ if __name__ == "__main__":
 
 ## 4.2 请手写一个单例
 ```
-    #python2
-    class A(object):
-        __instance = None
-        def __new__(cls, *args, **kwargs):
-            if cls.__instance is None:
-                cls.__instance = objecet.__new__(cls)
-                return cls.__instance
-            else:
-                return cls.__instance
+#python2
+class A(object):
+    __instance = None
+    def __new__(cls, *args, **kwargs):
+        if cls.__instance is None:
+            cls.__instance = objecet.__new__(cls)
+            return cls.__instance
+        else:
+            return cls.__instance
 ```
 ## 4.3 单例模式的应用场景有那些？
 单例模式应用的场景一般发现在以下条件下：
@@ -634,22 +633,22 @@ if __name__ == "__main__":
 装饰器本质上是一个python函数，它可以让其他函数在不需要做任何代码变动的前提下增加额外功能，装饰器的返回值也是一个函数对象。
 
 ```
-    import time
-    from functools import wraps
+import time
+from functools import wraps
 
-    def timeit(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            start = time.clock()
-            ret = func(*args, **kwargs)
-            end = time.clock()
-            print('used:', end-start)
-            return ret
+def timeit(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.clock()
+        ret = func(*args, **kwargs)
+        end = time.clock()
+        print('used:', end-start)
+        return ret
         
-        return wrapper
-    @timeit
-    def foo():
-        print('in foo()'foo())
+    return wrapper
+@timeit
+def foo():
+    print('in foo()'foo())
 ```
 ## 4.6 解释以下什么是闭包？
 在函数内部再定义一个函数，并且这个函数用到了外边函数的变量，那么将这个函数以及用到的一些变量称之为闭包。
@@ -671,14 +670,14 @@ if __name__ == "__main__":
     X 是 generator类型
 ## 4.10 请用一行代码 实现将1-N 的整数列表以3为单位分组
 ```
-    N =100
-    print ([[x for x in range(1, 100)] [i:i+3] for i in range(0, 100, 3)])
+N =100
+print ([[x for x in range(1, 100)] [i:i+3] for i in range(0, 100, 3)])
 ```
 ## 4.11 Python中yield的用法》
 yield就是保存当前程序执行状态。你用for循环的时候，每次取一个元素的时候就会计算一次。用yield的函数叫generator,和iterator一样，它的好处是不用一次计算所有元素，而是用一次算一次，可以节省很多空间，generator每次计算需要上一次计算结果，所以用yield,否则一return，上次计算结果就没了
 ## 4.20 用一行代码生成[1,4,9,16,25,36,49,64,81,100]
 ```
-    print([x * x for x in range(1, 11)])
+print([x * x for x in range(1, 11)])
 ```
 ## 7系统编程
 ## 7.1 进程总结
@@ -688,32 +687,32 @@ yield就是保存当前程序执行状态。你用for循环的时候，每次取
 创建一个Process对象;
 创建Process对象时，可以传递参数;
 ```
-    p = Process(target=XXX, args=(tuple,), kwargs={key:value})
-    # target = XXX 指定的任务函数，不用加(),
-    # args=(tuple,)kwargs={key:value}给任务函数传递的参数
+p = Process(target=XXX, args=(tuple,), kwargs={key:value})
+# target = XXX 指定的任务函数，不用加(),
+# args=(tuple,)kwargs={key:value}给任务函数传递的参数
 ```
 使用start()启动进程
 结束进程
 给子进程指定函数传递参数Demo
 ```
-    import os
-    from mulitprocessing import Process
-    import time
+import os
+from mulitprocessing import Process
+import time
 
-    def pro_func(name,age,**kwargs):
-        for i in range(5):
-            print("子进程正在运行中，name=%s,age=%d,pid=%d" % (name, age, os.getpid()))
-            print(kwargs)
-            time.sleep(0.2)
-    if __name__ =="__main__":
-        # 创建Process对象
-        p = Process(target=pro_func, args=('小明', 18), kwargs={'m':20})
-        # 启动进程
-        p.start()
-        time.sleep(1)
-        # 1秒钟之后，立刻结束子进程
-        p.terminate()
-        p.join()
+def pro_func(name,age,**kwargs):
+    for i in range(5):
+        print("子进程正在运行中，name=%s,age=%d,pid=%d" % (name, age, os.getpid()))
+        print(kwargs)
+        time.sleep(0.2)
+if __name__ =="__main__":
+    # 创建Process对象
+    p = Process(target=pro_func, args=('小明', 18), kwargs={'m':20})
+    # 启动进程
+    p.start()
+    time.sleep(1)
+    # 1秒钟之后，立刻结束子进程
+    p.terminate()
+    p.join()
 ```
 注意：进程间不共享全局变量
 进程之间的通信-Queue
@@ -730,86 +729,86 @@ Queue.put(item,[block[,timeout]]):将item消息写入队列，block默认值为T
 Queue.put_nowait(item):相当Queue.put(item,False)
 进程间通信Demo:
 ```
-    from multiprocessing import Process.Queue
-    import os, time, random
-    # 写数据进程执行的代码：
-    def write(q):
-        for value in ['A','B','C']:
-            print("Put %s to queue...",%value)
-            q.put(value)
+from multiprocessing import Process.Queue
+import os, time, random
+# 写数据进程执行的代码：
+def write(q):
+    for value in ['A','B','C']:
+        print("Put %s to queue...",%value)
+        q.put(value)
+        time.sleep(random.random())
+# 读数据进程执行的代码
+def read(q):
+    while True:
+        if not q.empty():
+            value = q.get(True)
+            print("Get %s from queue." % value)
             time.sleep(random.random())
-    # 读数据进程执行的代码
-    def read(q):
-        while True:
-            if not q.empty():
-                value = q.get(True)
-                print("Get %s from queue." % value)
-                time.sleep(random.random())
-            else:
-                break
-    if __name__=='__main__':
-        # 父进程创建Queue，并传给各个子进程
-        q = Queue()
-        pw = Process(target=write, args=(q,))
-        pr = Process(target=read, args=(q,))
-        # 启动子进程pw ，写入：
-        pw.start()
-        # 等待pw结束
-        pw.join()
-        # 启动子进程pr，读取：
-        pr.start()
-        pr.join()
-        # pr 进程里是死循环，无法等待其结束，只能强行终止:
-        print('')
-        print('所有数据都写入并且读完')
+        else:
+            break
+if __name__=='__main__':
+    # 父进程创建Queue，并传给各个子进程
+    q = Queue()
+    pw = Process(target=write, args=(q,))
+    pr = Process(target=read, args=(q,))
+    # 启动子进程pw ，写入：
+    pw.start()
+    # 等待pw结束
+    pw.join()
+    # 启动子进程pr，读取：
+    pr.start()
+    pr.join()
+    # pr 进程里是死循环，无法等待其结束，只能强行终止:
+    print('')
+    print('所有数据都写入并且读完')
 ```
     进程池Pool
 ```
-        #coding:utf-8
-        from multiprocessing import Pool
-        import os, time, random
+#coding:utf-8
+from multiprocessing import Pool
+import os, time, random
         
-        def worker(msg):
-            t_start = time.time()
-            print("%s 开始执行，进程号为%d" % (msg, os.getpid()))
-            # random.random()随机生成0-1之间的浮点数
-            time.sleep(random.random() * 2)
-            t_stop = time.time()
-            print(msg,"执行完毕，耗时%0.2f" %（t_stop-t_start))
+def worker(msg):
+    t_start = time.time()
+    print("%s 开始执行，进程号为%d" % (msg, os.getpid()))
+    # random.random()随机生成0-1之间的浮点数
+    time.sleep(random.random() * 2)
+    t_stop = time.time()
+    print(msg,"执行完毕，耗时%0.2f" %（t_stop-t_start))
         
-        po = Pool(3)#定义一个进程池，最大进程数3
-        for i in range(0, 10):
-            po.apply_async(worker, (i,))
-        print("---start----")
-        po.close()
-        po.join()
-        print("----end----")
+po = Pool(3)#定义一个进程池，最大进程数3
+for i in range(0, 10):
+    po.apply_async(worker, (i,))
+print("---start----")
+po.close()
+po.join()
+print("----end----")
 ```
 进程池中使用Queue
 如果要使用Pool创建进程，就需要使用multiprocessing.Manager()中的Queue(),而不是multiprocessing.Queue(),否则会得到如下的错误信息：
 RuntimeError： Queue objects should only be shared between processs through inheritance
 ```
-        from multiprocessing import Manager, Pool
-        import os, time, random
-        def reader(q):
-            print("reader 启动(%s),父进程为（%s)" % (os.getpid(), os.getpid()))
-            for i in range(q.qsize()):
-                print("reader 从Queue获取到消息:%s" % q.get(True))
+from multiprocessing import Manager, Pool
+import os, time, random
+def reader(q):
+    print("reader 启动(%s),父进程为（%s)" % (os.getpid(), os.getpid()))
+    for i in range(q.qsize()):
+        print("reader 从Queue获取到消息:%s" % q.get(True))
 
-        def writer(q):
-            print("writer 启动（%s),父进程为(%s)" % (os.getpid(), os.getpid()))
-            for i ini "itcast":
-                q.put(i)
-        if __name__ == "__main__":
-            print("(%s)start" % os.getpid())
-            q = Manager().Queue()  # 使用Manager中的Queue
-            po = Pool()
-            po.apply_async(wrtier, (q,))
-            time.sleep(1)
-            po.apply_async(reader, (q,))
-            po.close()
-            po.join()
-            print("(%s)End" % os.getpid())
+def writer(q):
+    print("writer 启动（%s),父进程为(%s)" % (os.getpid(), os.getpid()))
+    for i ini "itcast":
+        q.put(i)
+if __name__ == "__main__":
+    print("(%s)start" % os.getpid())
+    q = Manager().Queue()  # 使用Manager中的Queue
+    po = Pool()
+    po.apply_async(wrtier, (q,))
+    time.sleep(1)
+    po.apply_async(reader, (q,))
+    po.close()
+    po.join()
+    print("(%s)End" % os.getpid())
 ```
 ## 7.2 谈谈你对多进程，多线程，以及协程的理解，项目是否用？
 这个问题被问的概念相当之大，
@@ -827,26 +826,26 @@ RuntimeError： Queue objects should only be shared between processs through inh
 
 ## 7.4 多线程共同操作同一个数据互斥锁同步？
 ```
-    import threading
-    import time
-    class MyThread(threading.Thread):
-        def run(self):
-            global num
-            time.sleep(1)
-        
-            if mutex.acquire(1):
-                num += 1
-                msg = self.name + 'set num to ' +str(num)
-                print msg
-                mutex.release()
-    num = 0
-    mutex = threading.Lock()
-    def test():
-        for i in range(5):
-            t = MyThread()
-            t.start()
-    if __name__=="__main__":
-        test()
+import threading
+import time
+class MyThread(threading.Thread):
+    def run(self):
+        global num
+        time.sleep(1)
+   
+        if mutex.acquire(1):
+            num += 1
+            msg = self.name + 'set num to ' +str(num)
+            print msg
+            mutex.release()
+num = 0
+mutex = threading.Lock()
+def test():
+    for i in range(5):
+        t = MyThread()
+        t.start()
+if __name__=="__main__":
+    test()
 ```
 ## 7.5 什么是多线程竞争？
 线程是非独立的，同一个进程里线程是数据共享的，当各个线程访问数据资源时会出现竞争状态即：数据几乎同步会被多个线程占用，造成数据混乱，即所谓的线程不安全
@@ -859,43 +858,43 @@ RuntimeError： Queue objects should only be shared between processs through inh
 当一个进程启动之后，会默认产生一个主线程，因为线程是程序执行的最小单位，当设置多线程时，主线程会创建多个子线程，在Python中，默认情况下就是setDaemon(False),主线程执行完自己的任务以后，就退出了，此时子线程会继续执行自己的任务，直到自己的任务结束。
 例子
 ```
-    import threading 
-    import time
+import threading 
+import time
     
-    def thread():
-        time.sleep(2)
-        print('---子线程结束---')
+def thread():
+    time.sleep(2)
+    print('---子线程结束---')
+
+def main():
+    t1 = threading.Thread(target=thread)
+    t1.start()
+    print('---主线程--结束')
     
-    def main():
-        t1 = threading.Thread(target=thread)
-        t1.start()
-        print('---主线程--结束')
-    
-    if __name__ =='__main__':
-        main()
-    # 执行结果
-    ---主线程--结束
-    ---子线程结束---
+if __name__ =='__main__':
+    main()
+# 执行结果
+---主线程--结束
+---子线程结束---
 ```
 二、 setDaemon（True)
 当我们使用setDaemon(True)时，这是子线程为守护线程，主线程一旦执行结束，则全部子线程被强制终止
 例子
 ```
-    import threading
-    import time
-    def thread():
-        time.sleep(2)
-        print(’---子线程结束---')
-    def main():
-        t1 = threading.Thread(target=thread)
-        t1.setDaemon(True)#设置子线程守护主线程
-        t1.start()
-        print('---主线程结束---')
+import threading
+import time
+def thread():
+    time.sleep(2)
+    print(’---子线程结束---')
+def main():
+    t1 = threading.Thread(target=thread)
+    t1.setDaemon(True)#设置子线程守护主线程
+    t1.start()
+    print('---主线程结束---')
     
-    if __name__ =='__main__':
-        main()
-    # 执行结果
-    ---主线程结束--- #只有主线程结束，子线程来不及执行就被强制结束
+if __name__ =='__main__':
+    main()
+# 执行结果
+---主线程结束--- #只有主线程结束，子线程来不及执行就被强制结束
 ```
 三、 join（线程同步)
 join 所完成的工作就是线程同步，即主线程任务结束以后，进入堵塞状态，一直等待所有的子线程结束以后，主线程再终止。
@@ -903,24 +902,24 @@ join 所完成的工作就是线程同步，即主线程任务结束以后，进
 没有设置守护线程时，主线程将会等待timeout的累加和这样的一段时间，时间一到，主线程结束，但是并没有杀死子线程，子线程依然可以继续执行，直到子线程全部结束，程序退出。
 例子
 ```
-    import threading
-    import time
+import threading
+import time
 
-    def thread():
-        time.sleep(2)
-        print('---子线程结束---')
+def thread():
+    time.sleep(2)
+    print('---子线程结束---')
     
-    def main():
-        t1 = threading.Thread(target=thread)
-        t1.setDaemon(True)
-        t1.start()
-        t1.join(timeout=1)  # 1 线程同步，主线程堵塞1s 然后主线程结束，子线程继续执行
-                            # 2 如果不设置timeout参数就等子线程结束主线程再结束
-                            # 3 如果设置了setDaemon=True和timeout=1主线程等待1s后会强制杀死子线程，然后主线程结束
-        print('---主线程结束---')
+def main():
+    t1 = threading.Thread(target=thread)
+    t1.setDaemon(True)
+    t1.start()
+    t1.join(timeout=1)  # 1 线程同步，主线程堵塞1s 然后主线程结束，子线程继续执行
+                        # 2 如果不设置timeout参数就等子线程结束主线程再结束
+                        # 3 如果设置了setDaemon=True和timeout=1主线程等待1s后会强制杀死子线程，然后主线程结束
+    print('---主线程结束---')
     
-    if __name__=='__main___':
-        main()
+if __name__=='__main___':
+    main()
 ```
 ## 7.7 解释以下什么是锁，有哪几种锁？
 锁(Lock)是python提供的对线程控制的对象。有互斥锁，可重入锁，死锁。
