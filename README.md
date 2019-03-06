@@ -457,7 +457,7 @@ c. 字典 dict 、 集合 set
         pass
     foo1 = Foo()
     foo2 = Foo()
-    print foo1 is foo2 #True
+    print(foo1 is foo2)  # True
 ```
 第二种方法：使用基类
 New 是真正创建实例对象的方法，所以重写基类的new 方法，以此保证创建对象的时候只生成一个实例
@@ -474,7 +474,7 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
     foo1 = Foo()
     foo2 = Foo()
 
-    print foo1 is foo2 #True
+    print(foo1 is foo2)# True
 ```
 第三种方法：元类，元类是用于创建类对象的类，类对象创建实例对象时一定要调用call方法，因此在调用call时候保证始终只创建一个实例即可，type是python的元类
 ```
@@ -490,7 +490,7 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
     
     foo1 = Foo()
     foo2 = Foo()
-    print foo1 is foo2 #True
+    print(foo1 is foo2)  # True
 
 ```
 ## 4.4 反转一个整数，例如-123 --> -321 
@@ -617,7 +617,7 @@ if __name__ == "__main__":
 
 ## 4.2 请手写一个单例
 ```
-    #python2
+    # python2
     class A(object):
         __instance = None
         def __new__(cls,*args,**kwargs):
@@ -713,7 +713,7 @@ yield就是保存当前程序执行状态。你用for循环的时候，每次取
         #启动进程
         p.start()
         time.sleep(1)
-        #1秒钟之后，立刻结束子进程
+        # 1秒钟之后，立刻结束子进程
         p.terminate()
         p.join()
 ```
@@ -761,7 +761,7 @@ Queue.put_nowait(item):相当Queue.put(item,False)
         #启动子进程pr，读取：
         pr.start()
         pr.join()
-        #pr 进程里是死循环，无法等待其结束，只能强行终止:
+        # pr 进程里是死循环，无法等待其结束，只能强行终止:
         print('')
         print('所有数据都写入并且读完')
 ```
@@ -839,7 +839,7 @@ RuntimeError： Queue objects should only be shared between processs through inh
             if mutex.acquire(1):
                 num +=1
                 msg = self.name + 'set num to ' +str(num)
-                print msg
+                print(msg)
                 mutex.release()
     num = 0
     mutex = threading.Lock()
@@ -916,9 +916,9 @@ join 所完成的工作就是线程同步，即主线程任务结束以后，进
         t1 = threading.Thread(target=thread)
         t1.setDaemon(True)
         t1.start()
-        t1.join(timeout=1)#1 线程同步，主线程堵塞1s 然后主线程结束，子线程继续执行
-                          #2 如果不设置timeout参数就等子线程结束主线程再结束
-                          #3 如果设置了setDaemon=True和timeout=1主线程等待1s后会强制杀死子线程，然后主线程结束
+        t1.join(timeout=1)# 1 线程同步，主线程堵塞1s 然后主线程结束，子线程继续执行
+                          # 2 如果不设置timeout参数就等子线程结束主线程再结束
+                          # 3 如果设置了setDaemon=True和timeout=1主线程等待1s后会强制杀死子线程，然后主线程结束
         print('---主线程结束---')
     
     if __name__=='__main___':
