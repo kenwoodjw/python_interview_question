@@ -305,6 +305,8 @@ def get_lines(fp):
             if char==b"\n":
                 yield m[tmp:i+1].decode()
                 tmp = i+1
+        if tmp<i:
+            yield yield m[tmp:i+1].decode()
 
 if __name__=="__main__":
     for i in get_lines("fp_some_huge_file"):
@@ -670,9 +672,9 @@ if __name__ == "__main__":
     X= (i for i in range(10))
     X是 generator类型
 ## 4.10 请用一行代码 实现将1-N 的整数列表以3为单位分组
-```
-    N =100
-    print ([[x for x in range(1,100)] [i:i+3] for i in range(0,100,3)])
+```python
+    n = 21
+    print([list(range(i,i+3)) for i in range(1,n,3)])
 ```
 ## 4.11 Python中yield的用法》
 yield就是保存当前程序执行状态。你用for循环的时候，每次取一个元素的时候就会计算一次。用yield的函数叫generator,和iterator一样，它的好处是不用一次计算所有元素，而是用一次算一次，可以节省很多空间，generator每次计算需要上一次计算结果，所以用yield,否则一return，上次计算结果就没了
