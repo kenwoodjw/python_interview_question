@@ -533,17 +533,14 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
     import os
     
     def pick(obj):
-        try:
-            if obj.[-4:] == ".pyc":
-                print(obj)
-            except:
-                return None
+        if obj.endswith(".pyc"):
+            print(obj)
         
     def scan_path(ph):
         file_list = os.listdir(ph)
         for obj in file_list:
             if os.path.isfile(obj):
-        pick(obj)
+                pick(obj)
             elif os.path.isdir(obj):
                 scan_path(obj)
         
