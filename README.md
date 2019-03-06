@@ -278,7 +278,7 @@
 ## 1.1 有一个jsonline格式的文件file.txt 大小约为10K
 ```
     def get_lines():
-        with open('file.txt','rb') as f:
+        with open('file.txt', 'rb') as f:
             return f.readlines()
 
     if __name__ == '__main__':
@@ -288,7 +288,7 @@
 现在要处理一个大小为10G的文件，但是内存只有4G，如果在只修改get_lines 函数而其他代码保持不变的情况下，应该如何实现？需要考虑的问题都有那些？
 ```
     def get_lines():
-        with open('file.txt','rb') as f:
+        with open('file.txt', 'rb') as f:
             for i in f:
                 yield i
 ```
@@ -298,7 +298,7 @@ from mmap import mmap
 
 
 def get_lines(fp):
-    with open(fp,"r+") as f:
+    with open(fp, "r+") as f:
         m = mmap(f.fileno(), 0)
         tmp = 0
         for i, char in enumerate(m):
@@ -336,25 +336,25 @@ https://stackoverflow.com/questions/30294146/python-fastest-way-to-process-large
         year = input("请输入年份: ")
         month = input("请输入月份: ")
         day = input("请输入天: ")
-        date1 = datetime.date(year=int(year),month=int(month),day=int(day))
-        date2 = datetime.date(year=int(year),month=1,day=1)
+        date1 = datetime.date(year=int(year), month=int(month), day=int(day))
+        date2 = datetime.date(year=int(year), month=1, day=1)
         return (date1-date2).days+1
 ```
 ## 2.2 打乱一个排好序的list对象alist？
 ```
     import random
-    alist = [1,2,3,4,5]
+    alist = [1, 2, 3, 4, 5]
     random.shuffle(alist)
     print(alist)
 ```
 # 数据类型
 ## 3.1 现有字典 d= {'a':24,'g':52,'i':12,'k':33}请按value值进行排序?
 ```
-    sorted(d.items(),key=lambda x:x[1])
+    sorted(d.items(), key=lambda x:x[1])
 ```
 ## 3.2 字典推导式
 ```
- d = {key:value for (key,value) in iterable}
+ d = {key: value for (key, value) in iterable}
 ```
 ## 3.3 请反转字符串 "aStr"?
 ```
@@ -366,30 +366,30 @@ https://stackoverflow.com/questions/30294146/python-fastest-way-to-process-large
     def str2dict(str1):
         dict1 = {}
         for iterms in str1.split('|'):
-            key,value = iterms.split(':')
+            key, value = iterms.split(':')
             dict1[key] = value
         return dict1
 ```
 ## 3.5 请按alist中元素的age由大到小排序
 ```
-    alist = [{'name':'a','age':20},{'name':'b','age':30},{'name':'c','age':25}]
+    alist = [{'name': 'a', 'age': 20}, {'name': 'b', 'age': 30},{'name': 'c', 'age': 25}]
     def sort_by_age(list1):
-        return sorted(alist,key=lambda x:x['age'],reverse=True)
+        return sorted(alist, key=lambda x:x['age'], reverse=True)
 ```
 ## 3.6 下面代码的输出结果将是什么？
 ```
-    list = ['a','b','c','d','e']
+    list = ['a', 'b', 'c', 'd', 'e']
     print(list[10:])
 ```
 代码将输出[],不会产生IndexError错误，就像所期望的那样，尝试用超出成员的个数的index来获取某个列表的成员。例如，尝试获取list[10]和之后的成员，会导致IndexError。然而，尝试获取列表的切片，开始的index超过了成员个数不会产生IndexError，而是仅仅返回一个空列表。这成为特别让人恶心的疑难杂症，因为运行的时候没有错误产生，导致Bug很难被追踪到。
 ## 3.7 写一个列表生成式，产生一个公差为11的等差数列
 ```
-    print([x*11 for x in range(10)])
+    print([x * 11 for x in range(10)])
 ```
 ## 3.8 给定两个列表，怎么找出他们相同的元素和不同的元素？
 ```
-    list1 = [1,2,3]
-    list2 = [3,4,5]
+    list1 = [1, 2, 3]
+    list2 = [3, 4, 5]
     set1 = set(list1)
     set2 = set(list2)
     print(set1 & set2)
@@ -397,26 +397,26 @@ https://stackoverflow.com/questions/30294146/python-fastest-way-to-process-large
 ```
 ## 3.9 请写出一段python代码实现删除list里面的重复元素？
 ```
-    l1 = ['b','c','d','c','a','a']
+    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
     l2 = list(set(l1))
     print(l2)
 ```
 用list类的sort方法:
 ```
-    l1 = ['b','c','d','c','a','a']
+    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
     l2 = list(set(l1))
     l2.sort(key=l1.index)
     print(l2)
 ```
 也可以这样写:
 ```
-    l1 = ['b','c','d','c','a','a']
-    l2 = sorted(set(l1),key=l1.index)
+    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
+    l2 = sorted(set(l1), key=l1.index)
     print(l2)
 ```
 也可以用遍历：
 ```
-    l1 = ['b','c','d','c','a','a']
+    l1 = ['b', 'c', 'd', 'c', 'a', 'a']
     l2 = []
     for i in l1:
         if not i in l2:
@@ -425,8 +425,8 @@ https://stackoverflow.com/questions/30294146/python-fastest-way-to-process-large
 ```
 ## 3.10 给定两个list A，B ,请用找出A，B中相同与不同的元素
 ```
-    A,B 中相同元素： print(set(A)&set(B))
-    A,B 中不同元素:  print(set(A)^set(B))
+    A,B 中相同元素: print(set(A) & set(B))
+    A,B 中不同元素: print(set(A) ^ set(B))
 ```
 # 企业面试题
 ## 4.1 python新式类和经典类的区别？
@@ -461,9 +461,9 @@ c. 字典 dict 、 集合 set
 New 是真正创建实例对象的方法，所以重写基类的new 方法，以此保证创建对象的时候只生成一个实例
 ```
     class Singleton(object):
-        def __new__(cls,*args,**kwargs):
-            if not hasattr(cls,'_instance'):
-                cls._instance = super(Singleton,cls).__new__(cls,*args,**kwargs)
+        def __new__(cls, *args, **kwargs):
+            if not hasattr(cls, '_instance'):
+                cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
             return cls._instance
         
     class Foo(Singleton):
@@ -472,14 +472,14 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
     foo1 = Foo()
     foo2 = Foo()
 
-    print foo1 is foo2 #True
+    print foo1 is foo2  # True
 ```
 第三种方法：元类，元类是用于创建类对象的类，类对象创建实例对象时一定要调用call方法，因此在调用call时候保证始终只创建一个实例即可，type是python的元类
 ```
     class Singleton(type):
-        def __call__(cls,*args,**kwargs):
-            if not hasattr(cls,'_instance'):
-                cls._instance = super(Singleton,cls).__call__(*args,**kwargs)
+        def __call__(cls, *args, **kwargs):
+            if not hasattr(cls, '_instance'):
+                cls._instance = super(Singleton, cls).__call__(*args, **kwargs)
             return cls._instance
 ```
 ```
@@ -488,24 +488,24 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
     
     foo1 = Foo()
     foo2 = Foo()
-    print foo1 is foo2 #True
+    print foo1 is foo2  # True
 
 ```
 ## 4.4 反转一个整数，例如-123 --> -321 
 ```
     class Solution(object):
-        def reverse(self,x):
-            if -10<x<10:
+        def reverse(self, x):
+            if -10 < x < 10:
                 return x
             str_x = str(x)
-            if str_x[0] !="-":
+            if str_x[0] != "-":
                 str_x = str_x[::-1]
                 x = int(str_x)
             else:
                 str_x = str_x[1:][::-1]
                 x = int(str_x)
                 x = -x
-            return x if -2147483648<x<2147483647 else 0
+            return x if -2147483648 < x < 2147483647 else 0
     if __name__ == '__main__':
         s = Solution()
         reverse_int = s.reverse(-120)
@@ -518,15 +518,15 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
 
     def get_files(dir,suffix):
         res = []
-        for root,dirs,files in os.walk(dir):
+        for root, dirs, files in os.walk(dir):
             for filename in files:
-                name,suf = os.path.splitext(filename)
+                name, suf = os.path.splitext(filename)
                 if suf == suffix:
-                    res.append(os.path.join(root,filename))
+                    res.append(os.path.join(root, filename))
 
         print(res)
     
-    get_files("./",'.pyc')
+    get_files("./", '.pyc')
 ```
 第二种方法：
 ```
@@ -618,7 +618,7 @@ if __name__ == "__main__":
     #python2
     class A(object):
         __instance = None
-        def __new__(cls,*args,**kwargs):
+        def __new__(cls, *args, **kwargs):
             if cls.__instance is None:
                 cls.__instance = objecet.__new__(cls)
                 return cls.__instance
@@ -643,7 +643,7 @@ if __name__ == "__main__":
             start = time.clock()
             ret = func(*args, **kwargs)
             end = time.clock()
-            print('used:',end-start)
+            print('used:', end-start)
             return ret
         
         return wrapper
@@ -668,17 +668,17 @@ if __name__ == "__main__":
 官方介绍：https://docs.python.org/3/tutorial/classes.html#iterators
 ## 4.9 X是什么类型?
     X= (i for i in range(10))
-    X是 generator类型
+    X 是 generator类型
 ## 4.10 请用一行代码 实现将1-N 的整数列表以3为单位分组
 ```
     N =100
-    print ([[x for x in range(1,100)] [i:i+3] for i in range(0,100,3)])
+    print ([[x for x in range(1, 100)] [i:i+3] for i in range(0, 100, 3)])
 ```
 ## 4.11 Python中yield的用法》
 yield就是保存当前程序执行状态。你用for循环的时候，每次取一个元素的时候就会计算一次。用yield的函数叫generator,和iterator一样，它的好处是不用一次计算所有元素，而是用一次算一次，可以节省很多空间，generator每次计算需要上一次计算结果，所以用yield,否则一return，上次计算结果就没了
 ## 4.20 用一行代码生成[1,4,9,16,25,36,49,64,81,100]
 ```
-    print([x*x for x in range(1, 11)])
+    print([x * x for x in range(1, 11)])
 ```
 ## 7系统编程
 ## 7.1 进程总结
@@ -688,9 +688,9 @@ yield就是保存当前程序执行状态。你用for循环的时候，每次取
 创建一个Process对象;
 创建Process对象时，可以传递参数;
 ```
-    p = Process(target=XXX,args=(tuple,),kwargs={key:value})
-    target = XXX 指定的任务函数，不用加(),
-    args=(tuple,)kwargs={key:value}给任务函数传递的参数
+    p = Process(target=XXX, args=(tuple,), kwargs={key:value})
+    # target = XXX 指定的任务函数，不用加(),
+    # args=(tuple,)kwargs={key:value}给任务函数传递的参数
 ```
 使用start()启动进程
 结束进程
@@ -702,16 +702,16 @@ yield就是保存当前程序执行状态。你用for循环的时候，每次取
 
     def pro_func(name,age,**kwargs):
         for i in range(5):
-            print("子进程正在运行中，name=%s,age=%d,pid=%d"%(name,age,os.getpid()))
+            print("子进程正在运行中，name=%s,age=%d,pid=%d" % (name, age, os.getpid()))
             print(kwargs)
             time.sleep(0.2)
     if __name__ =="__main__":
-        #创建Process对象
-        p = Process(target=pro_func,args=('小明',18),kwargs={'m':20})
-        #启动进程
+        # 创建Process对象
+        p = Process(target=pro_func, args=('小明', 18), kwargs={'m':20})
+        # 启动进程
         p.start()
         time.sleep(1)
-        #1秒钟之后，立刻结束子进程
+        # 1秒钟之后，立刻结束子进程
         p.terminate()
         p.join()
 ```
@@ -731,35 +731,35 @@ Queue.put_nowait(item):相当Queue.put(item,False)
 进程间通信Demo:
 ```
     from multiprocessing import Process.Queue
-    import os,time,random
-    #写数据进程执行的代码：
+    import os, time, random
+    # 写数据进程执行的代码：
     def write(q):
         for value in ['A','B','C']:
             print("Put %s to queue...",%value)
             q.put(value)
             time.sleep(random.random())
-    #读数据进程执行的代码
+    # 读数据进程执行的代码
     def read(q):
         while True:
             if not q.empty():
                 value = q.get(True)
-                print("Get %s from queue.",%value)
+                print("Get %s from queue." % value)
                 time.sleep(random.random())
             else:
                 break
     if __name__=='__main__':
-        #父进程创建Queue，并传给各个子进程
+        # 父进程创建Queue，并传给各个子进程
         q = Queue()
-        pw = Process(target=write,args=(q,))
-        pr = Process(target=read,args=(q,))
-        #启动子进程pw ，写入：
+        pw = Process(target=write, args=(q,))
+        pr = Process(target=read, args=(q,))
+        # 启动子进程pw ，写入：
         pw.start()
-        #等待pw结束
+        # 等待pw结束
         pw.join()
-        #启动子进程pr，读取：
+        # 启动子进程pr，读取：
         pr.start()
         pr.join()
-        #pr 进程里是死循环，无法等待其结束，只能强行终止:
+        # pr 进程里是死循环，无法等待其结束，只能强行终止:
         print('')
         print('所有数据都写入并且读完')
 ```
@@ -767,19 +767,19 @@ Queue.put_nowait(item):相当Queue.put(item,False)
 ```
         #coding:utf-8
         from multiprocessing import Pool
-        import os,time,random
+        import os, time, random
         
         def worker(msg):
             t_start = time.time()
-            print("%s 开始执行，进程号为%d"%(msg,os.getpid()))
+            print("%s 开始执行，进程号为%d" % (msg, os.getpid()))
             # random.random()随机生成0-1之间的浮点数
-            time.sleep(random.random()*2)
+            time.sleep(random.random() * 2)
             t_stop = time.time()
-            print(msg,"执行完毕，耗时%0.2f”%（t_stop-t_start))
+            print(msg,"执行完毕，耗时%0.2f" %（t_stop-t_start))
         
         po = Pool(3)#定义一个进程池，最大进程数3
-        for i in range(0,10):
-            po.apply_async(worker,(i,))
+        for i in range(0, 10):
+            po.apply_async(worker, (i,))
         print("---start----")
         po.close()
         po.join()
@@ -789,27 +789,27 @@ Queue.put_nowait(item):相当Queue.put(item,False)
 如果要使用Pool创建进程，就需要使用multiprocessing.Manager()中的Queue(),而不是multiprocessing.Queue(),否则会得到如下的错误信息：
 RuntimeError： Queue objects should only be shared between processs through inheritance
 ```
-        from multiprocessing import Manager,Pool
-        import os,time,random
+        from multiprocessing import Manager, Pool
+        import os, time, random
         def reader(q):
-            print("reader 启动(%s),父进程为（%s)"%(os.getpid(),os.getpid()))
+            print("reader 启动(%s),父进程为（%s)" % (os.getpid(), os.getpid()))
             for i in range(q.qsize()):
-                print("reader 从Queue获取到消息:%s"%q.get(True))
+                print("reader 从Queue获取到消息:%s" % q.get(True))
 
         def writer(q):
-            print("writer 启动（%s),父进程为(%s)"%(os.getpid(),os.getpid()))
+            print("writer 启动（%s),父进程为(%s)" % (os.getpid(), os.getpid()))
             for i ini "itcast":
                 q.put(i)
         if __name__ == "__main__":
-            print("(%s)start"%os.getpid())
-            q = Manager().Queue()#使用Manager中的Queue
+            print("(%s)start" % os.getpid())
+            q = Manager().Queue()  # 使用Manager中的Queue
             po = Pool()
-            po.apply_async(wrtier,(q,))
+            po.apply_async(wrtier, (q,))
             time.sleep(1)
-            po.apply_async(reader,(q,))
+            po.apply_async(reader, (q,))
             po.close()
             po.join()
-            print("(%s)End"%os.getpid())
+            print("(%s)End" % os.getpid())
 ```
 ## 7.2 谈谈你对多进程，多线程，以及协程的理解，项目是否用？
 这个问题被问的概念相当之大，
@@ -835,7 +835,7 @@ RuntimeError： Queue objects should only be shared between processs through inh
             time.sleep(1)
         
             if mutex.acquire(1):
-                num +=1
+                num += 1
                 msg = self.name + 'set num to ' +str(num)
                 print msg
                 mutex.release()
@@ -873,7 +873,7 @@ RuntimeError： Queue objects should only be shared between processs through inh
     
     if __name__ =='__main__':
         main()
-    #执行结果
+    # 执行结果
     ---主线程--结束
     ---子线程结束---
 ```
@@ -894,7 +894,7 @@ RuntimeError： Queue objects should only be shared between processs through inh
     
     if __name__ =='__main__':
         main()
-    #执行结果
+    # 执行结果
     ---主线程结束--- #只有主线程结束，子线程来不及执行就被强制结束
 ```
 三、 join（线程同步)
@@ -914,9 +914,9 @@ join 所完成的工作就是线程同步，即主线程任务结束以后，进
         t1 = threading.Thread(target=thread)
         t1.setDaemon(True)
         t1.start()
-        t1.join(timeout=1)#1 线程同步，主线程堵塞1s 然后主线程结束，子线程继续执行
-                          #2 如果不设置timeout参数就等子线程结束主线程再结束
-                          #3 如果设置了setDaemon=True和timeout=1主线程等待1s后会强制杀死子线程，然后主线程结束
+        t1.join(timeout=1)  # 1 线程同步，主线程堵塞1s 然后主线程结束，子线程继续执行
+                            # 2 如果不设置timeout参数就等子线程结束主线程再结束
+                            # 3 如果设置了setDaemon=True和timeout=1主线程等待1s后会强制杀死子线程，然后主线程结束
         print('---主线程结束---')
     
     if __name__=='__main___':
@@ -1067,10 +1067,10 @@ Session 和Cookie的区别
 当前的问题是用django的rest framework模块做一个get请求的发送时间以及时区信息的api
 ```
 class getCurrenttime(APIView):
-    def get(self,request):
+    def get(self, request):
         local_time = time.localtime()
         time_zone =settings.TIME_ZONE
-        temp = {'localtime':local_time,'timezone':time_zone}
+        temp = {'localtime': local_time, 'timezone': time_zone}
         return Response(temp)
 ```
 ## 2.7 nginx,tomcat,apach到都是什么？
@@ -1128,22 +1128,22 @@ def process_request(request):
 ```
 3.处理视图前:在每个请求上调用，返回None或HttpResponse对象。
 ```
-def process_view(request,view_func,view_args,view_kwargs):
+def process_view(request, view_func, view_args, view_kwargs):
     pass
 ```
 4.处理模板响应前：在每个请求上调用，返回实现了render方法的响应对象。
 ```
-def process_template_response(request,response):
+def process_template_response(request, response):
     pass
 ```
 5.处理响应后：所有响应返回浏览器之前被调用，在每个请求上调用，返回HttpResponse对象。
 ```
-def process_response(request,response):
+def process_response(request, response):
     pass
 ```
 6.异常处理：当视图抛出异常时调用，在每个请求上调用，返回一个HttpResponse对象。
 ```
-def process_exception(request,exception):
+def process_exception(request, exception):
     pass
 ```
 ## 2.13 谈一下你对uWSGI和nginx的理解？
