@@ -306,7 +306,7 @@ def get_lines(fp):
                 yield m[tmp:i+1].decode()
                 tmp = i+1
         if tmp<i:
-            yield yield m[tmp:i+1].decode()
+            yield m[tmp:i+1].decode()
 
 if __name__=="__main__":
     for i in get_lines("fp_some_huge_file"):
