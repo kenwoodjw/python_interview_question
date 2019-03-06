@@ -606,7 +606,7 @@ if __name__ == "__main__":
 ```
 ## 3.7 使用Python内置的filter()方法来过滤？
 ```
-    [x for x in filter(lambda x: x % 2 == 0, range(10))] 
+    list(filter(lambda x: x % 2 == 0, range(10)))
 ```
 ## 4设计模式
 ## 4.1 对设计模式的理解，简述你了解的设计模式？
