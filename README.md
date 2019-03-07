@@ -578,7 +578,7 @@ New 是真正创建实例对象的方法，所以重写基类的new 方法，以
             func()
             end = time.clock()
             print('used:',end-start)
-            return wrapper
+         return wrapper
     @timeit
     def foo():
         print('in foo()'foo())
