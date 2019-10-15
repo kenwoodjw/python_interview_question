@@ -1608,68 +1608,68 @@ class MyCls(object):
 
 ### 95.a = “abbbccc”，用正则匹配为abccc,不管有多少b，就出现一次？
     思路：不管有多少个b替换成一个
-
+    
     re.sub(r'b+', 'b', a)
 ### 96.Python字符串查找和替换？
     a、str.find()：正序字符串查找函数
     函数原型：
     str.find(substr [,pos_start [,pos_end ] ] )
     返回str中第一次出现的substr的第一个字母的标号，如果str中没有substr则返回-1，也就是说从左边算起的第一次出现的substr的首字母标号。
-
+    
     参数说明：
     str：代表原字符串
     substr：代表要查找的字符串
     pos_start：代表查找的开始位置，默认是从下标0开始查找
     pos_end：代表查找的结束位置
-
+    
     例子：
     'aabbcc.find('bb')' # 2
-
+    
     b、str.index()：正序字符串查找函数
     index()函数类似于find()函数，在Python中也是在字符串中查找子串第一次出现的位置，跟find()不同的是，未找到则抛出异常。
-
+    
     函数原型：
     str.index(substr [, pos_start, [ pos_end ] ] )
-
+    
     参数说明：
     str：代表原字符串
     substr：代表要查找的字符串
     pos_start：代表查找的开始位置，默认是从下标0开始查找
     pos_end：代表查找的结束位置
-
+    
     例子：
     'acdd l1 23'.index(' ') # 4
-
+    
     c、str.rfind()：倒序字符串查找函数
-
+    
     函数原型：
     str.rfind( substr [, pos_start [,pos_ end ] ])
     返回str中最后出现的substr的第一个字母的标号，如果str中没有substr则返回-1，也就是说从右边算起的第一次出现的substr的首字母标号。
-
+    
     参数说明：
     str：代表原字符串
     substr：代表要查找的字符串
     pos_start：代表查找的开始位置，默认是从下标0开始查找
     pos_end：代表查找的结束位置
-
+    
     例子：
     'adsfddf'.rfind('d') # 5
-
+    
     d、str.rindex()：倒序字符串查找函数
     rindex()函数类似于rfind()函数，在Python中也是在字符串中倒序查找子串最后一次出现的位置，跟rfind()不同的是，未找到则抛出异常。
-
+    
     函数原型：
     str.rindex(substr [, pos_start, [ pos_end ] ] )
-
+    
     参数说明：
     str：代表原字符串
     substr：代表要查找的字符串
     pos_start：代表查找的开始位置，默认是从下标0开始查找
     pos_end：代表查找的结束位置
-
+    
     例子：
      'adsfddf'.rindex('d') # 5
-
+    
     e、使用re模块进行查找和替换：
 函数 | 说明
 ---|---
@@ -1679,13 +1679,13 @@ re.sub(pat,newpat,s) | re.sub(pat,newpat,s)	对字符串中s的包含的所有�
 
     f、使用replace()进行替换：
     基本用法：对象.replace(rgExp,replaceText,max)
-
+    
     其中，rgExp和replaceText是必须要有的，max是可选的参数，可以不加。
     rgExp是指正则表达式模式或可用标志的正则表达式对象，也可以是 String 对象或文字；
     replaceText是一个String 对象或字符串文字；
     max是一个数字。
     对于一个对象，在对象的每个rgExp都替换成replaceText，从左到右最多max次。
-
+    
     s1='hello world'
     s1.replace('world','liming')
 
@@ -1693,7 +1693,7 @@ re.sub(pat,newpat,s) | re.sub(pat,newpat,s)	对字符串中s的包含的所有�
     第一个代表贪心匹配，第二个代表非贪心；
     ?在一般正则表达式里的语法是指的"零次或一次匹配左边的字符或表达式"相当于{0,1}
     而当?后缀于*,+,?,{n},{n,},{n,m}之后，则代表非贪心匹配模式，也就是说，尽可能少的匹配左边的字符或表达式，这里是尽可能少的匹配.(任意字符)
-
+    
     所以：第一种写法是，尽可能多的匹配，就是匹配到的字符串尽量长，第二中写法是尽可能少的匹配，就是匹配到的字符串尽量短。
     比如<tag>tag>tag>end，第一个会匹配<tag>tag>tag>,第二个会匹配<tag>。
 ### 98.正则表达式贪婪与非贪婪模式的区别？
@@ -1701,12 +1701,12 @@ re.sub(pat,newpat,s) | re.sub(pat,newpat,s)	对字符串中s的包含的所有�
     定义：正则表达式去匹配时，会尽量多的匹配符合条件的内容
     标识符：+，?，*，{n}，{n,}，{n,m}
     匹配时，如果遇到上述标识符，代表是贪婪匹配，会尽可能多的去匹配内容
-
+    
     非贪婪模式：
     定义：正则表达式去匹配时，会尽量少的匹配符合条件的内容 也就是说，一旦发现匹配符合要求，立马就匹配成功，而不会继续匹配下去(除非有g，开启下一组匹配)
     标识符：+?，??，*?，{n}?，{n,}?，{n,m}?
     可以看到，非贪婪模式的标识符很有规律，就是贪婪模式的标识符后面加上一个?
-
+    
     参考文章：https://dailc.github.io/2017/07/06/regularExpressionGreedyAndLazy.html
 
 ### 99.写出开头匹配字母和下划线，末尾是数字的正则表达式？
@@ -2084,6 +2084,15 @@ asyncio这个库就是使用python的yield这个可以打断保存当前函数�
 ## 网络编程
 ### 123.怎么实现强行关闭客户端和服务器之间的连接?
 ### 124.简述TCP和UDP的区别以及优缺点?
+
+1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接
+2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付
+3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的
+  UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）
+4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信
+5、TCP首部开销20字节;UDP的首部开销小，只有8个字节
+6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道
+
 ### 125.简述浏览器通过WSGI请求动态资源的过程?
 浏览器发送的请求被Nginx监听到，Nginx根据请求的URL的PATH或者后缀把请求静态资源的分发到静态资源的目录，别的请求根据配置好的转发到相应端口。
 实现了WSGI的程序会监听某个端口，监听到Nginx转发过来的请求接收后(一般用socket的recv来接收HTTP的报文)以后把请求的报文封装成`environ`的字典对象，然后再提供一个`start_response`的方法。把这两个对象当成参数传入某个方法比如`wsgi_app(environ, start_response)`或者实现了`__call__(self, environ, start_response)`方法的某个实例。这个实例再调用`start_response`返回给实现了WSGI的中间件，再由中间件返回给Nginx。
