@@ -295,7 +295,7 @@ def get_lines():
             yield i
 ```
 个人认为：还是设置下每次返回的行数较好，否则读取次数太多。
-```
+```Python
 def get_lines():
     l = []
     with open('file.txt','rb') as f:
